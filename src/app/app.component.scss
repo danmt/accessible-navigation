@@ -1,0 +1,48 @@
+@import '~src/assets/styles/_variables.scss';
+
+.header {
+  position: fixed;
+  width: 100%;
+  height: $header-height;
+  background-color: lighten($background-color, 5);
+  color: white;
+  padding: 0.5rem;
+
+  &__nav {
+    ul {
+      display: flex;
+
+      li {
+        list-style-type: none;
+        margin-right: 1rem;
+        padding: 0.5rem 1rem;
+        color: lightgray;
+        cursor: pointer;
+
+        a {
+          &:visited {
+            color: #cfaaff;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        &:focus-within,
+        &:hover {
+          outline: 1px solid white;
+
+          a {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.main {
+  padding-top: $header-height;
+  background: $background-color;
+}
