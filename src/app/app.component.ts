@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import { fromEvent } from 'rxjs';
-import { map, distinctUntilChanged, startWith } from 'rxjs/operators';
+import {
+  map,
+  distinctUntilChanged,
+  startWith,
+  filter,
+  mergeMap
+} from 'rxjs/operators';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -17,5 +25,26 @@ export class AppComponent {
 
   private getScrollY() {
     return Math.round(window.scrollY / 10) * 10;
+  }
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title
+  ) {}
+
+  ngOnInit() {
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(() => this.activatedRoute),
+        map(route => {
+          while (route.firstChild) route = route.firstChild;
+          return route;
+        }),
+        filter(route => route.outlet === 'primary'),
+        mergeMap(route => route.data)
+      )
+      .subscribe(event => this.titleService.setTitle(event['title']));
   }
 }
