@@ -11,29 +11,24 @@
   &__nav {
     ul {
       display: flex;
+      margin-top: 2rem;
 
       li {
         list-style-type: none;
-        margin-right: 1rem;
-        padding: 0.5rem 1rem;
-        color: lightgray;
-        cursor: pointer;
 
         a {
+          margin-right: 1rem;
+          padding: 0.5rem 1rem;
+          color: gray;
+          text-decoration: none;
+
           &:visited {
             color: #cfaaff;
           }
 
+          &:hover,
           &:focus {
-            outline: none;
-          }
-        }
-
-        &:focus-within,
-        &:hover {
-          outline: 1px solid white;
-
-          a {
+            outline: 1px solid white;
             color: white;
           }
         }
