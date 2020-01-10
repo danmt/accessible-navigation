@@ -26,10 +26,15 @@
             color: #cfaaff;
           }
 
+          &.active,
           &:hover,
           &:focus {
-            outline: 1px solid white;
             color: white;
+            outline: 1px solid white;
+          }
+
+          &.active {
+            text-decoration: underline;
           }
         }
       }
