@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Observable } from 'rxjs';
 import {
   map,
   distinctUntilChanged,
@@ -16,16 +16,12 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'accessible-navigation';
+  title$: Observable<string>;
   scrollY$ = fromEvent(window, 'scroll').pipe(
     map(() => this.getScrollY()),
     startWith(this.getScrollY()),
     distinctUntilChanged()
   );
-
-  private getScrollY() {
-    return Math.round(window.scrollY / 10) * 10;
-  }
 
   constructor(
     private router: Router,
@@ -34,17 +30,33 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
-    this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationEnd),
-        map(() => this.activatedRoute),
-        map(route => {
-          while (route.firstChild) route = route.firstChild;
-          return route;
-        }),
-        filter(route => route.outlet === 'primary'),
-        mergeMap(route => route.data)
-      )
-      .subscribe(event => this.titleService.setTitle(event['title']));
+    // Get the activated route on Navigation end
+    const route$ = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => this.activatedRoute)
+    );
+
+    // Get the first child route AKA the root
+    const primaryRoute$ = route$.pipe(
+      map(route => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      }),
+      filter(route => route.outlet === 'primary')
+    );
+
+    // Get the first child route AKA the root
+    const routeData$ = primaryRoute$.pipe(mergeMap(route => route.data));
+    // Get the actual title from the route data
+    this.title$ = routeData$.pipe(map(({ title }) => title));
+
+    this.title$.subscribe(title => {
+      // Set title to the page
+      this.titleService.setTitle(title);
+    });
+  }
+
+  private getScrollY() {
+    return Math.round(window.scrollY / 10) * 10;
   }
 }

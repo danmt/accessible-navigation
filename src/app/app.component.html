@@ -1,3 +1,7 @@
+<div *ngIf="title$ | async as title" aria-live="assertive">
+  <span [attr.aria-label]="title"></span>
+</div>
+
 <header class="header">
   <h1 class="header__title">
     Accessible Navigation
