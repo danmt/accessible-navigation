@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
 import {
   map,
@@ -16,6 +16,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  @ViewChild('appHeader', { static: true }) appHeader: ElementRef;
   title$: Observable<string>;
   scrollY$ = fromEvent(window, 'scroll').pipe(
     map(() => this.getScrollY()),
@@ -51,6 +52,10 @@ export class AppComponent {
     this.title$ = routeData$.pipe(map(({ title }) => title));
 
     this.title$.subscribe(title => {
+      // Scroll to top
+      window.scrollTo(0, 0);
+      // Clear focus
+      this.appHeader.nativeElement.focus();
       // Set title to the page
       this.titleService.setTitle(title);
     });

@@ -8,6 +8,10 @@
   color: white;
   padding: 0.5rem;
 
+  &:focus {
+    outline: none;
+  }
+
   &__nav {
     ul {
       display: flex;
@@ -26,14 +30,18 @@
             color: #cfaaff;
           }
 
-          &.active,
-          &:hover,
           &:focus {
             color: white;
             outline: 1px solid white;
           }
 
+          &:hover {
+            color: white;
+            background-color: lighten($background-color, 10);
+          }
+
           &.active {
+            color: white;
             text-decoration: underline;
           }
         }
