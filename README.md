@@ -25,7 +25,7 @@ So it basically allows:
 
 If you have used the Angular Router you know that all the accessibility features just mentioned are lost. So, if you are looking to make your Angular app more accessible, sooner than later you are gonna have to face this.
 
-We are gonna solve each of the problems, one at a time. If you want to do all the coding process on your own, access this [broken version of the code]() and follow my lead.
+We are gonna solve each of the problems, one at a time. If you want to do all the coding process on your own, access this [broken version of the code](https://github.com/danmt/accessible-navigation/tree/broken-version) and follow my lead.
 
 ## Current page for Sighted Users
 
@@ -83,7 +83,7 @@ a {
 
 Since the hover and focus have the outline and the color we want, I reorganized a the selectors to reduce the duplicated code.
 
-Last thing we have to do is to make sure we update the title of the page for every time the url changes. For this I followed the instructions from [Todd Motto] in his article [Dynamic page titles in Angular 2 with router events](https://ultimatecourses.com/blog/dynamic-page-titles-angular-2-router-events) and did some changes to it.
+Last thing we have to do is to make sure we update the title of the page for every time the url changes. For this I followed the instructions from Todd Motto in his article [Dynamic page titles in Angular 2 with router events](https://ultimatecourses.com/blog/dynamic-page-titles-angular-2-router-events) and did some changes to it.
 
 This leads us to changing the `src/app/app-routing.module.ts`
 
@@ -276,7 +276,7 @@ Don't forget to add the template reference in `src/app/app.component.ts` and mak
 </header>
 ```
 
-And we dont want the focus outline (the ugly blue line) in the header so can do this:
+And we dont want the focus outline in the header so can do this:
 
 ```scss
 .header {
@@ -290,4 +290,4 @@ And we dont want the focus outline (the ugly blue line) in the header so can do 
 
 ## Conclusion
 
-After playing a little bit with Angular, we were able to make the navigation _feel_ like the native one. It's not the most accessible navigation in the world, but this can get you there and is **WAY BETTER** than nothing. If you want a finished solution, look at this [working version of the app]().
+After playing a little bit with Angular, we were able to make the navigation _feel_ like the native one. It's not the most accessible navigation in the world, but this can get you there and is **WAY BETTER** than nothing. If you want a finished solution, look at this [working version of the app](https://github.com/danmt/accessible-navigation).
